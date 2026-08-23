@@ -9,6 +9,7 @@
     align-items: center;
 
     padding: 60px;
+    font-family: var(--font-editorial);
 }
 
 .home-intro {

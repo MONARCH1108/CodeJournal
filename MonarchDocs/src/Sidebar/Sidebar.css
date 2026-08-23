@@ -18,6 +18,7 @@
     background: white;
 
     flex-shrink: 0;
+    font-family: var(--font-ui);
 }
 
 
