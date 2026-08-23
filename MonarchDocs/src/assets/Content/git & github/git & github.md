@@ -1,3 +1,8 @@
+---
+
+---
+
+---
 ## Git
 - version control system is a tool that helps to track changes in our code.
 - **Git** is a **Version Control System**, it is 
@@ -103,7 +108,7 @@ there are 4 stages for a file in Git:
 - for example in web development multiple departments will be working on front end and back end, and push they code into their respective branches in git and finally merge together
 
 ## To check our Branch commands
-- **git branch**                             (to check branch)
+- **git branch                                 (to check branch)
 - **git branch -M main                  (to rename branch)
 - **git checkout <-branch name->           (to navigate)
 - **git checkout -b <-new branch name-> (to create new branch)
