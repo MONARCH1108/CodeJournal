@@ -1,18 +1,15 @@
-import { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
-import Render from "./Render/Render";
+import Page from "./Page/Page";
 
 function App() {
-    const [content, setContent] = useState("");
     return (
-        <div style={{ display: "flex" }}>
-            <Sidebar
-                onSelect={setContent}
-            />
-            <Render
-                content={content}
-            />
-        </div>
+        <BrowserRouter>
+            <div style={{ display: "flex" }}>
+                <Sidebar />
+                <Page />
+            </div>
+        </BrowserRouter>
     );
 }
 export default App;

@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { Menu } from "antd";
 import "./Sidebar.css";
 
-function Sidebar({ onSelect }) {
+function Sidebar() {
+    const navigate = useNavigate();
     const files = import.meta.glob(
         "../assets/Content/**/*.md",
         {
@@ -10,7 +12,6 @@ function Sidebar({ onSelect }) {
             eager: true,
         }
     );
-
     const items = [];
     Object.entries(files).forEach(([file, content]) => {
         const parts = file.split("/");
@@ -24,7 +25,10 @@ function Sidebar({ onSelect }) {
             );
             if (!item) {
                 item = {
-                    key: pathParts.slice(0, index + 1).join("/"),
+                    key: pathParts
+                        .slice(0, index + 1)
+                        .join("/"),
+
                     label: part,
                 };
                 if (!isFile) {
@@ -34,7 +38,8 @@ function Sidebar({ onSelect }) {
             }
             if (isFile) {
                 item.onClick = () => {
-                    onSelect(content);
+                    const pageName = part.replace(".md", "");
+                    navigate(`/${pageName}`);
                 };
             }
             if (!isFile) {
@@ -52,5 +57,4 @@ function Sidebar({ onSelect }) {
         </div>
     );
 }
-
 export default Sidebar;
