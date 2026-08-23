@@ -1,0 +1,17 @@
+.render {
+    flex: 1;
+    height: 100vh;
+    padding: 40px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.render h1,
+.render h2,
+.render h3 {
+    margin-top: 0;
+}
+
+.render p {
+    line-height: 1.7;
+}
