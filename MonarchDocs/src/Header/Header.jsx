@@ -4,7 +4,7 @@ import { FiSearch, FiGithub, FiMenu, FiX } from "react-icons/fi";
 
 import "./Header.css";
 
-function Header() {
+function Header({ onMenuClick }) {
     const navigate = useNavigate();
 
     const [searchOpen, setSearchOpen] = useState(false);
@@ -36,10 +36,20 @@ function Header() {
 
     function handleSearchClick(file) {
         const parts = file.split("/");
-        const fileName = parts[parts.length - 1];
-        const pageName = fileName.replace(".md", "");
 
-        navigate(`/${pageName}`);
+        const contentIndex = parts.indexOf("Content");
+
+        const pathParts = parts.slice(
+            contentIndex + 1
+        );
+
+        const pagePath = pathParts
+            .map((part) =>
+                part.replace(".md", "")
+            )
+            .join("/");
+
+        navigate(`/${pagePath}`);
 
         setSearch("");
         setSearchOpen(false);
@@ -56,7 +66,7 @@ function Header() {
         <header className="header">
 
             <div className="header-logo">
-                MONARCHDOCS
+                Monarch CodeJournal
             </div>
 
             <div className="header-actions">
@@ -77,7 +87,10 @@ function Header() {
                     <FiGithub />
                 </button>
 
-                <button className="header-icon">
+                <button
+                    className="header-icon"
+                    onClick={onMenuClick}
+                >
                     <FiMenu />
                 </button>
 

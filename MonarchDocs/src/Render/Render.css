@@ -1,9 +1,12 @@
 .render {
     flex: 1;
+    height: 100%;
     min-width: 0;
-    height: calc(100vh - 52px);
+
     padding: 40px;
+
     box-sizing: border-box;
+
     overflow-y: auto;
 }
 
@@ -15,4 +18,14 @@
 
 .render p {
     line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+
+    .render {
+        width: 100%;
+        height: 100%;
+
+        padding: 24px 18px;
+    }
 }

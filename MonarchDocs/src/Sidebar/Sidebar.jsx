@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { Menu } from "antd";
+
 import "./Sidebar.css";
 
-function Sidebar() {
+function Sidebar({ isOpen, onClose }) {
     const navigate = useNavigate();
 
     const files = import.meta.glob(
@@ -22,7 +23,9 @@ function Sidebar() {
 
         const contentIndex = parts.indexOf("Content");
 
-        const pathParts = parts.slice(contentIndex + 1);
+        const pathParts = parts.slice(
+            contentIndex + 1
+        );
 
         let currentItems = items;
 
@@ -63,6 +66,10 @@ function Sidebar() {
                         .join("/");
 
                     navigate(`/${pagePath}`);
+
+                    if (onClose) {
+                        onClose();
+                    }
                 };
             }
 
@@ -73,14 +80,25 @@ function Sidebar() {
     });
 
     return (
-        <div className="sidebar">
+    <>
+        <div
+            className={`sidebar-overlay ${
+                isOpen ? "sidebar-overlay-open" : ""
+            }`}
+            onClick={onClose}
+        />
 
+        <div
+            className={`sidebar ${
+                isOpen ? "sidebar-open" : ""
+            }`}
+        >
             <Menu
                 mode="inline"
                 items={items}
             />
-
         </div>
+    </>
     );
 }
 

@@ -1,26 +1,36 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./Header/Header";
+import { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+
 import Sidebar from "./Sidebar/Sidebar";
-import Home from "./Home/Home";
 import Page from "./Page/Page";
+import Header from "./Header/Header";
 
 function App() {
+
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
     return (
         <BrowserRouter>
-            <Header />
-            <div style={{ display: "flex" }}>
-                <Sidebar />
-                <Routes>
-                    <Route
-                        path="/"
-                        element={<Home />}
-                    />
-                    <Route
-                        path="*"
-                        element={<Page />}
-                    />
-                </Routes>
+
+            <Header
+                onMenuClick={() =>
+                    setSidebarOpen(!sidebarOpen)
+                }
+            />
+
+            <div className="main-layout">
+
+                <Sidebar
+                    isOpen={sidebarOpen}
+                    onClose={() =>
+                        setSidebarOpen(false)
+                    }
+                />
+
+                <Page />
+
             </div>
+
         </BrowserRouter>
     );
 }

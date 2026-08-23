@@ -94,3 +94,35 @@
 .search-empty {
     padding: 10px;
 }
+
+@media (max-width: 768px) {
+
+    .header {
+        height: 52px;
+        padding: 0 12px;
+    }
+
+    .header-logo {
+        font-size: 14px;
+    }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    .header-icon {
+        padding: 6px;
+    }
+
+    .header-icon svg {
+        width: 19px;
+        height: 19px;
+    }
+
+    .search-container {
+        top: 52px;
+        left: 10px;
+        right: 10px;
+        width: auto;
+    }
+}

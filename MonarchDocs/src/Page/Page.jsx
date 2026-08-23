@@ -1,9 +1,15 @@
 import { useLocation } from "react-router-dom";
 import Render from "../Render/Render";
+import Home from "../Home/Home";
 
 function Page() {
 
     const location = useLocation();
+
+        // Homepage
+    if (location.pathname === "/") {
+        return <Home />;
+    }
 
     const files = import.meta.glob(
         "../assets/Content/**/*.md",
