@@ -1,18 +1,28 @@
-import { BrowserRouter } from "react-router-dom";
-import Sidebar from "./Sidebar/Sidebar";
-import Page from "./Page/Page";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./Header/Header";
+import Sidebar from "./Sidebar/Sidebar";
+import Home from "./Home/Home";
+import Page from "./Page/Page";
 
 function App() {
     return (
         <BrowserRouter>
-        <Header />
+            <Header />
             <div style={{ display: "flex" }}>
-                
                 <Sidebar />
-                <Page />
+                <Routes>
+                    <Route
+                        path="/"
+                        element={<Home />}
+                    />
+                    <Route
+                        path="*"
+                        element={<Page />}
+                    />
+                </Routes>
             </div>
         </BrowserRouter>
     );
 }
+
 export default App;

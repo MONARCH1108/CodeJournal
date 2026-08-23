@@ -22,12 +22,21 @@ function Page() {
 
     Object.entries(files).forEach(([file, fileContent]) => {
 
-        const fileName = file
-            .split("/")
-            .pop()
-            .replace(".md", "");
+        const parts = file.split("/");
 
-        if (fileName === pageName) {
+        const contentIndex = parts.indexOf("Content");
+
+        const pathParts = parts.slice(
+            contentIndex + 1
+        );
+
+        const filePath = pathParts
+            .map((part) =>
+                part.replace(".md", "")
+            )
+            .join("/");
+
+        if (filePath === pageName) {
             content = fileContent;
         }
 
