@@ -3,13 +3,10 @@
     width: 100%;
     box-sizing: border-box;
     border-bottom: 2px solid black;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     padding: 0 14px;
-
     position: relative;
     font-family: var(--font-ui);
 }
@@ -27,13 +24,10 @@
 .header-icon {
     border: none;
     background: transparent;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding: 4px;
-
     cursor: pointer;
 }
 
@@ -44,47 +38,35 @@
 
 .search-container {
     position: absolute;
-
     top: 52px;
     right: 50px;
-
     width: 320px;
-
     border: 1px solid black;
     background: white;
-
     z-index: 100;
 }
 
 .search-container input {
     width: 100%;
     box-sizing: border-box;
-
     padding: 10px;
-
     border: none;
     outline: none;
 }
 
 .search-results {
     border-top: 1px solid black;
-
     max-height: 300px;
     overflow-y: auto;
 }
 
 .search-results button {
     display: block;
-
     width: 100%;
-
     padding: 10px;
-
     border: none;
     background: transparent;
-
     text-align: left;
-
     cursor: pointer;
 }
 
@@ -97,29 +79,23 @@
 }
 
 @media (max-width: 768px) {
-
     .header {
         height: 52px;
         padding: 0 12px;
     }
-
     .header-logo {
         font-size: 14px;
     }
-
     .header-actions {
         gap: 8px;
     }
-
     .header-icon {
         padding: 6px;
     }
-
     .header-icon svg {
         width: 19px;
         height: 19px;
     }
-
     .search-container {
         top: 52px;
         left: 10px;

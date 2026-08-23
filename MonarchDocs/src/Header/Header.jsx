@@ -6,10 +6,8 @@ import "./Header.css";
 
 function Header({ onMenuClick }) {
     const navigate = useNavigate();
-
     const [searchOpen, setSearchOpen] = useState(false);
     const [search, setSearch] = useState("");
-
     const files = import.meta.glob(
         "../assets/Content/**/*.md",
         {
@@ -22,7 +20,6 @@ function Header({ onMenuClick }) {
     const results = Object.entries(files).filter(
         ([file, content]) => {
             const fileName = file.split("/").pop();
-
             return (
                 fileName
                     .toLowerCase()
@@ -36,25 +33,19 @@ function Header({ onMenuClick }) {
 
     function handleSearchClick(file) {
         const parts = file.split("/");
-
         const contentIndex = parts.indexOf("Content");
-
         const pathParts = parts.slice(
             contentIndex + 1
         );
-
         const pagePath = pathParts
             .map((part) =>
                 part.replace(".md", "")
             )
             .join("/");
-
         navigate(`/${pagePath}`);
-
         setSearch("");
         setSearchOpen(false);
     }
-
     function handleGithubClick() {
         window.open(
             "https://github.com/MONARCH1108",
@@ -64,13 +55,10 @@ function Header({ onMenuClick }) {
 
     return (
         <header className="header">
-
-            <div className="header-logo">
+            <div className="header-logo" onClick={() => navigate("/")}>
                 Monarch CodeJournal
             </div>
-
             <div className="header-actions">
-
                 <button
                     className="header-icon"
                     onClick={() =>
@@ -79,26 +67,21 @@ function Header({ onMenuClick }) {
                 >
                     {searchOpen ? <FiX /> : <FiSearch />}
                 </button>
-
                 <button
                     className="header-icon"
                     onClick={handleGithubClick}
                 >
                     <FiGithub />
                 </button>
-
                 <button
                     className="header-icon"
                     onClick={onMenuClick}
                 >
                     <FiMenu />
                 </button>
-
             </div>
-
             {searchOpen && (
                 <div className="search-container">
-
                     <input
                         type="text"
                         placeholder="Search documentation..."
@@ -108,7 +91,6 @@ function Header({ onMenuClick }) {
                         }
                         autoFocus
                     />
-
                     {search && (
                         <div className="search-results">
 
