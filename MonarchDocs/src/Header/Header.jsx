@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiSearch, FiGithub, FiMenu, FiX } from "react-icons/fi";
+import { FiSearch, FiGithub, FiMenu, FiX, FiHome } from "react-icons/fi";
 
 import "./Header.css";
 
@@ -66,6 +66,13 @@ function Header({ onMenuClick }) {
                     }
                 >
                     {searchOpen ? <FiX /> : <FiSearch />}
+                </button>
+                <button
+                    className="header-icon"
+                    onClick={() => navigate("/")}
+                    aria-label="Home"
+                >
+                    <FiHome />
                 </button>
                 <button
                     className="header-icon"
