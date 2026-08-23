@@ -15,7 +15,9 @@ CodeJournal solves this by acting as a direct bridge between local file systems 
 
 ---
 
-## 2. Architecture (Markdown-to-Web Pipeline)
+## 2. Architecture & The Obsidian-to-Site Data Flow
+
+The entire platform operates on an automated static bundling pipeline that bridges local Obsidian authoring with client-side React rendering:
 
 ```mermaid
 graph TD
@@ -40,7 +42,83 @@ graph TD
 
 ---
 
-## 3. Tech Stack & Dependencies
+## 3. End-to-End Data Flow Pipeline (Step-by-Step)
+
+The documentation platform executes an automated 6-stage lifecycle to turn local Obsidian notes into live web pages:
+
+```text
+Local Obsidian Vault  ──>  Vite Eager Globbing  ──>  Hierarchy & Search Index  ──>  Route Matcher  ──>  Wikilink Parser  ──>  DOM Render
+  (src/assets/Content)     (?raw & ?url maps)         (AntD Tree + Search Modal)      (Page.jsx)          (ImageParser.js)       (ReactMarkdown)
+```
+
+### Stage 1: Local Note Authoring & Vault Sync
+- Notes, technical sheets, and guides are written locally as `.md` files inside nested subfolders within `src/assets/Content/`.
+- Screenshots and diagrams pasted directly in Obsidian are automatically saved into local image folders (e.g. `images/` or `Images/`).
+- The directory contains native `.obsidian/` configuration files (`app.json`, `workspace.json`, `core-plugins.json`), making `src/assets/Content/` an official Obsidian vault.
+
+### Stage 2: Static Asset Ingestion & Compile-Time Bundling
+- Vite statically analyzes and bundles all Markdown and media assets at build time via `import.meta.glob`:
+  - **Raw Markdown Text**:
+    ```javascript
+    const files = import.meta.glob("../assets/Content/**/*.md", {
+        query: "?raw",
+        import: "default",
+        eager: true,
+    });
+    ```
+  - **Hashed Image Asset URLs**:
+    ```javascript
+    const images = import.meta.glob("../assets/Content/**/*.{png,jpg,jpeg,gif,svg,webp}", {
+        eager: true,
+        query: "?url",
+        import: "default",
+    });
+    ```
+
+### Stage 3: Dynamic Menu Tree Generation & Search Indexing
+- **Sidebar Hierarchy (`Sidebar.jsx`)**:
+  - Splits each file path relative to `Content/` into folder segments.
+  - Recursively constructs an Ant Design `<Menu mode="inline" />` data tree with `FiFolder` icons for directories and `FiFileText` icons for individual notes.
+  - Automatically adapts to any directory depth without hardcoded route files.
+- **Search Engine (`Header.jsx`)**:
+  - Eagerly indexes all loaded files to enable instant, zero-latency search matching across both file titles (`fileName.toLowerCase()`) and raw document text (`content.toLowerCase()`).
+
+### Stage 4: Dynamic Route Resolution (`Page.jsx`)
+- When a user selects a menu item or search result, React Router navigates to the nested document path (e.g., `/{category}/{subcategory}/{note}`).
+- `Page.jsx` listens to route changes via `useLocation()`:
+  - If `location.pathname === "/"`, it mounts the interactive `<Home />` landing screen.
+  - Otherwise, it extracts and decodes the pathname slug, looks up the corresponding Markdown string in the eager file cache, and passes it to `<Render />`.
+
+### Stage 5: Obsidian Wikilink Image Preprocessing (`ImageParser.js`)
+- Standard Markdown renderers fail to display Obsidian wikilink image tags (e.g. `![[Pasted image 20250411165743.png]]`).
+- `Render.jsx` passes the raw Markdown string to `ImageParser.js`:
+  ```javascript
+  function parseImages(content) {
+      return content.replace(/!\[\[(.*?)\]\]/g, (_, image) => {
+          const imageName = image.trim();
+          const imagePath = Object.keys(images).find((path) =>
+              path.endsWith(`/${imageName}`)
+          );
+          return imagePath
+              ? `![${imageName}](${images[imagePath]})`
+              : `![${imageName}](/images/${encodeURIComponent(imageName)})`;
+      });
+  }
+  ```
+- This dynamically converts all wikilink images into standard Markdown image tags pointing to Vite's hashed asset URLs.
+
+### Stage 6: Markdown DOM Rendering & Typography Output
+- `Render.jsx` feeds the preprocessed content into `ReactMarkdown` with the `remark-gfm` plugin.
+- Applies refined dark luxury typography styles (`Render.css`):
+  - Editorial serif headings (`Source Serif 4`)
+  - Styled monospace code blocks (`JetBrains Mono`)
+  - Gold-accented blockquotes (`#c9a96e`)
+  - Zebra-striped data tables with dark border grids
+  - Custom dark scrollbars and responsive image frames
+
+---
+
+## 4. Tech Stack & Dependencies
 
 | Layer | Technology | Purpose |
 |---|---|---|
@@ -54,34 +132,6 @@ graph TD
 | **Content Vault** | Obsidian Vault (`src/assets/Content/`) | Local Markdown note authoring environment with `.obsidian` configurations |
 | **Design System** | Refined Dark Editorial System | CSS custom properties, gold accents (`#c9a96e`), Google Fonts (`Source Serif 4`, `JetBrains Mono`, `IBM Plex Sans`) |
 | **Deployment & CI/CD** | Netlify + GitHub Actions | Automated continuous integration and static site hosting on push to `main` |
-
----
-
-## 4. End-to-End Data Flow (Pipeline)
-
-1. **Local Authoring & Vault Sync**
-   Technical notes, guides, and images are created locally in nested subfolders inside `src/assets/Content/` using the Obsidian desktop application.
-
-2. **Static Asset Ingestion (Vite Globbing)**
-   - Vite's `import.meta.glob("../assets/Content/**/*.md", { query: "?raw", import: "default", eager: true })` discovers and compiles all Markdown files as raw text strings.
-   - Vite's `import.meta.glob("../assets/Content/**/*.{png,jpg,jpeg,gif,svg,webp}", { eager: true, query: "?url", import: "default" })` discovers and hashes all media assets.
-
-3. **Hierarchical Tree & Search Indexing**
-   - `Sidebar.jsx` parses file paths relative to `Content/`, splits path segments, and builds a recursive Ant Design `<Menu mode="inline" />` with custom folder/file icons.
-   - `Header.jsx` builds a real-time full-text and title search index across all loaded documents.
-
-4. **Dynamic Route Resolution**
-   - `Page.jsx` inspects `location.pathname` via `useLocation()`.
-   - If `pathname === "/"`, it mounts the interactive `<Home />` landing screen.
-   - Otherwise, it decodes the URL slug and matches it against the bundled file paths (e.g., `/Node & Express/Notes-Node`).
-
-5. **Obsidian Wikilink Image Preprocessing**
-   - Before Markdown parsing, `Render.jsx` passes the raw string through `ImageParser.js`.
-   - A regex matcher `/!\[\[(.*?)\]\]/g` extracts the image filename, finds the corresponding hashed asset path, and transforms it into standard Markdown syntax: `![imageName](hashedAssetUrl)`.
-
-6. **Markdown DOM Rendering & Styling**
-   - `ReactMarkdown` processes the enriched Markdown string with the `remark-gfm` plugin.
-   - Renders styled HTML elements into a dedicated viewport with dark luxury typography, custom scrollbars, code blocks, blockquotes, and tables.
 
 ---
 
