@@ -205,3 +205,144 @@
         padding-left: 10px;
     }
 }
+
+
+/* =========================
+   DARK SIDEBAR OVERRIDES
+   ========================= */
+
+.sidebar {
+    background: var(--color-surface);
+    border-right-color: var(--color-border);
+    color: var(--color-text-secondary);
+}
+
+.sidebar-title {
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+}
+
+
+/* =========================
+   DARK ANT MENU OVERRIDES
+   ========================= */
+
+.sidebar .ant-menu-item .ant-menu-title-content,
+.sidebar .ant-menu-submenu-title .ant-menu-title-content {
+    color: var(--color-text-secondary) !important;
+    font-size: 13px;
+    transition: color 0.15s ease;
+}
+
+.sidebar .ant-menu-item:hover .ant-menu-title-content,
+.sidebar .ant-menu-submenu-title:hover .ant-menu-title-content {
+    color: var(--color-text) !important;
+}
+
+.sidebar .ant-menu-item .anticon,
+.sidebar .ant-menu-submenu-title .anticon,
+.sidebar .ant-menu-item svg,
+.sidebar .ant-menu-submenu-title svg {
+    color: var(--color-text) !important;
+    fill: var(--color-text) !important;
+    stroke: var(--color-text) !important;
+    transition: color 0.15s ease;
+}
+
+.sidebar .ant-menu-item:hover svg,
+.sidebar .ant-menu-submenu-title:hover svg {
+    color: var(--color-text) !important;
+    fill: var(--color-text) !important;
+    stroke: var(--color-text) !important;
+}
+
+.sidebar .ant-menu-item:hover,
+.sidebar .ant-menu-submenu-title:hover {
+    background: var(--color-surface-elevated) !important;
+}
+
+.sidebar .ant-menu-item-selected .ant-menu-title-content {
+    color: var(--color-accent) !important;
+}
+
+.sidebar .ant-menu-item-selected .anticon {
+    color: var(--color-accent) !important;
+}
+
+.sidebar .ant-menu-submenu-arrow {
+    color: var(--color-text-secondary) !important;
+}
+
+.sidebar .ant-menu-submenu-arrow::before,
+.sidebar .ant-menu-submenu-arrow::after {
+    background: var(--color-text-secondary) !important;
+}
+
+.sidebar .ant-menu-sub {
+    border-left: 1px solid var(--color-border) !important;
+    margin-left: 12px;
+}
+
+
+/* =========================
+   DARK SCROLLBAR
+   ========================= */
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+}
+
+.sidebar:hover::-webkit-scrollbar-thumb {
+    background: var(--color-muted);
+}
+
+
+/* =========================
+   DARK DEVELOPER SECTION
+   ========================= */
+
+.sidebar-developer {
+    border-top: 1px solid var(--color-border);
+}
+
+.sidebar-developer-title {
+    color: var(--color-text-secondary) !important;
+    font-family: var(--font-mono) !important;
+}
+
+.sidebar-social-links a {
+    color: var(--color-text-secondary);
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-social-links a:hover {
+    color: var(--color-accent);
+    transform: translateY(-1px);
+}
+
+.sidebar-social-links svg {
+    width: 16px;
+    height: 16px;
+}
+
+
+/* =========================
+   DARK MOBILE SIDEBAR
+   ========================= */
+
+@media (max-width: 768px) {
+    .sidebar {
+        background: var(--color-surface);
+        border-right-color: var(--color-border);
+        box-shadow: var(--shadow-elevated);
+    }
+
+    .sidebar-overlay {
+        background: rgba(0, 0, 0, 0.55);
+    }
+}

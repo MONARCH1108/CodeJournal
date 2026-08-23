@@ -103,3 +103,100 @@
         width: auto;
     }
 }
+
+
+/* =========================
+   DARK HEADER OVERRIDES
+   ========================= */
+
+.header {
+    background: var(--color-surface);
+    border-bottom-color: var(--color-border);
+    color: var(--color-text);
+}
+
+.header-logo {
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: var(--color-text);
+    cursor: pointer;
+    user-select: none;
+}
+
+.header-icon {
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-sm);
+    transition: color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.header-icon:hover {
+    color: var(--color-text);
+    background: var(--color-surface-elevated);
+    box-shadow: var(--shadow-neu-up);
+}
+
+.header-icon:active {
+    box-shadow: var(--shadow-neu-down);
+}
+
+.header-icon svg {
+    stroke-width: 1.8;
+}
+
+
+/* =========================
+   DARK SEARCH OVERRIDES
+   ========================= */
+
+.search-container {
+    background: var(--color-surface-elevated);
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-elevated);
+    border-radius: var(--radius-sm);
+}
+
+.search-container input {
+    background: var(--color-surface-elevated);
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.01em;
+}
+
+.search-container input::placeholder {
+    color: var(--color-muted);
+}
+
+.search-results {
+    border-top-color: var(--color-border);
+}
+
+.search-results button {
+    color: var(--color-text-secondary);
+    font-family: var(--font-ui);
+    font-size: 13px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.search-results button:hover {
+    background: var(--color-surface);
+    color: var(--color-text);
+}
+
+.search-empty {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .header {
+        background: var(--color-surface);
+        border-bottom-color: var(--color-border);
+    }
+    .header-logo {
+        font-size: 11px;
+    }
+}

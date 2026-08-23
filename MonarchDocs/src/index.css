@@ -57,3 +57,45 @@ body {
         overflow: hidden;
     }
 }
+
+
+/* =========================
+   DARK DESIGN TOKENS
+   ========================= */
+
+:root {
+    --color-bg: #0e0e10;
+    --color-surface: #161619;
+    --color-surface-elevated: #1e1e22;
+    --color-text: #e8e6e3;
+    --color-text-secondary: #a8a8b0;
+    --color-muted: #6b6b73;
+    --color-border: #2a2a2e;
+    --color-accent: #c9a96e;
+
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --shadow-inset: inset 0 1px 3px rgba(0, 0, 0, 0.35);
+    --shadow-neu-up: 3px 3px 6px rgba(0, 0, 0, 0.5), -2px -2px 5px rgba(255, 255, 255, 0.03);
+    --shadow-neu-down: inset 2px 2px 4px rgba(0, 0, 0, 0.4), inset -1px -1px 3px rgba(255, 255, 255, 0.02);
+
+    --radius-sm: 3px;
+    --radius-md: 6px;
+}
+
+
+/* =========================
+   DARK GLOBAL OVERRIDES
+   ========================= */
+
+html,
+body,
+#root {
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+::selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+}

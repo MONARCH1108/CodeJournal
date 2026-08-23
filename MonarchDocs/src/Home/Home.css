@@ -1,3 +1,7 @@
+/* =========================
+   HOME — DARK EDITORIAL
+   ========================= */
+
 .home {
     flex: 1;
     height: 100%;
@@ -7,70 +11,342 @@
     align-items: center;
     padding: 60px;
     font-family: var(--font-editorial);
+    background: var(--color-bg);
+    position: relative;
 }
+
+
+/* =========================
+   GRID BACKGROUND
+   ========================= */
+
+.home-grid-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+
+    background-image:
+        /* vertical lines */
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 0px,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px,
+            transparent 80px
+        ),
+        /* horizontal lines */
+        repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.025) 0px,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px,
+            transparent 80px
+        );
+
+    background-size: 80px 80px;
+}
+
+/* subtle radial depth — lighter in upper-left */
+.home-grid-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 70% 60% at 15% 30%,
+        rgba(201, 169, 110, 0.018) 0%,
+        transparent 70%
+    );
+}
+
+
+/* =========================
+   CORNER MARKS
+   ========================= */
+
+.home-corner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.home-corner::before,
+.home-corner::after {
+    content: "";
+    position: absolute;
+    background: var(--color-border);
+}
+
+/* horizontal stroke */
+.home-corner::before {
+    width: 24px;
+    height: 1px;
+}
+
+/* vertical stroke */
+.home-corner::after {
+    width: 1px;
+    height: 24px;
+}
+
+.home-corner--tl {
+    top: 32px;
+    left: 32px;
+}
+.home-corner--tl::before { top: 0; left: 0; }
+.home-corner--tl::after  { top: 0; left: 0; }
+
+.home-corner--tr {
+    top: 32px;
+    right: 32px;
+}
+.home-corner--tr::before { top: 0; right: 0; }
+.home-corner--tr::after  { top: 0; right: 0; }
+
+.home-corner--bl {
+    bottom: 32px;
+    left: 32px;
+}
+.home-corner--bl::before { bottom: 0; left: 0; }
+.home-corner--bl::after  { bottom: 0; left: 0; }
+
+.home-corner--br {
+    bottom: 32px;
+    right: 32px;
+}
+.home-corner--br::before { bottom: 0; right: 0; }
+.home-corner--br::after  { bottom: 0; right: 0; }
+
+
+/* =========================
+   CONTENT LAYER
+   ========================= */
 
 .home-intro {
     max-width: 760px;
+    position: relative;
+    z-index: 2;
+
+    animation: home-enter 0.8s ease both;
 }
 
-.home-label {
-    margin: 0 0 24px;
-    font-size: 12px;
-    letter-spacing: 0.12em;
+
+/* =========================
+   ENTRANCE ANIMATION
+   ========================= */
+
+@keyframes home-enter {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
+
+/* =========================
+   LABEL
+   ========================= */
+
+.home-label {
+    margin: 0 0 28px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--color-accent);
+    text-transform: uppercase;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    animation: home-enter 0.8s 0.1s ease both;
+}
+
+.home-label::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--color-accent);
+    opacity: 0.5;
+}
+
+
+/* =========================
+   HEADING
+   ========================= */
 
 .home h1 {
     margin: 0;
-    font-size: clamp(48px, 7vw, 88px);
+    font-family: var(--font-editorial);
+    font-size: clamp(48px, 7vw, 84px);
     line-height: 0.95;
     font-weight: 700;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.045em;
+    color: var(--color-text);
+
+    animation: home-enter 0.8s 0.15s ease both;
 }
 
+
+/* =========================
+   DESCRIPTION
+   ========================= */
+
 .home-description {
-    max-width: 520px;
+    max-width: 480px;
     margin-top: 32px;
-    font-size: 17px;
+    font-family: var(--font-ui);
+    font-size: 15px;
     line-height: 1.7;
+    color: var(--color-text-secondary);
+
+    animation: home-enter 0.8s 0.25s ease both;
 }
+
+
+/* =========================
+   SEPARATOR
+   ========================= */
+
+.home-separator {
+    width: 48px;
+    height: 1px;
+    background: var(--color-border);
+    margin: 36px 0;
+    border: none;
+
+    animation: home-enter 0.8s 0.3s ease both;
+}
+
+
+/* =========================
+   SOCIAL LINKS
+   ========================= */
 
 .home-links {
     display: flex;
-    gap: 24px;
-    margin-top: 36px;
+    gap: 28px;
+    margin-top: 0;
+
+    animation: home-enter 0.8s 0.35s ease both;
 }
 
 .home-links a {
     display: flex;
     align-items: center;
     gap: 8px;
+
     text-decoration: none;
-    font-size: 14px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--color-text-secondary);
+    position: relative;
+
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.home-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-accent);
+    transition: width 0.3s ease;
+}
+
+.home-links a:hover {
+    color: var(--color-text);
+    transform: translateY(-1px);
+}
+
+.home-links a:hover::after {
+    width: 100%;
 }
 
 .home-links svg {
-    width: 17px;
-    height: 17px;
+    width: 15px;
+    height: 15px;
+    stroke-width: 1.8;
 }
+
+
+/* =========================
+   METADATA ANNOTATION
+   ========================= */
+
+.home-meta {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    z-index: 2;
+
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    opacity: 0.5;
+    text-align: right;
+    line-height: 1.8;
+
+    animation: home-enter 0.8s 0.5s ease both;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
 
 @media (max-width: 768px) {
     .home {
         padding: 32px 20px;
         align-items: flex-start;
     }
+
     .home-intro {
         margin-top: 40px;
     }
+
     .home h1 {
-        font-size: clamp(44px, 13vw, 64px);
+        font-size: clamp(40px, 13vw, 60px);
     }
+
     .home-description {
-        font-size: 15px;
+        font-size: 14px;
         margin-top: 24px;
     }
+
     .home-links {
         flex-wrap: wrap;
         gap: 18px;
-        margin-top: 28px;
+        margin-top: 0;
+    }
+
+    .home-corner {
+        display: none;
+    }
+
+    .home-meta {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        text-align: left;
+        margin-top: 48px;
+        opacity: 0.4;
+    }
+
+    .home-separator {
+        margin: 28px 0;
     }
 }

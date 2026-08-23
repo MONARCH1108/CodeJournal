@@ -267,3 +267,176 @@
         font-size: 13px;
     }
 }
+
+
+/* =========================
+   DARK RENDER OVERRIDES
+   ========================= */
+
+.render {
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+
+/* =========================
+   DARK HEADINGS
+   ========================= */
+
+.render h1,
+.render h2,
+.render h3,
+.render h4,
+.render h5,
+.render h6 {
+    color: var(--color-text);
+}
+
+.render h1 {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.3em;
+}
+
+.render h2 {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.25em;
+}
+
+
+/* =========================
+   DARK LINKS
+   ========================= */
+
+.render a {
+    color: var(--color-accent);
+    text-decoration-color: rgba(201, 169, 110, 0.3);
+    transition: text-decoration-color 0.2s ease, opacity 0.2s ease;
+}
+
+.render a:hover {
+    opacity: 1;
+    text-decoration-color: var(--color-accent);
+}
+
+
+/* =========================
+   DARK BLOCKQUOTE
+   ========================= */
+
+.render blockquote {
+    border-left-color: var(--color-accent);
+    color: var(--color-text-secondary);
+    background: var(--color-surface);
+    padding: 16px 20px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+
+/* =========================
+   DARK INLINE CODE
+   ========================= */
+
+.render code {
+    background: var(--color-surface-elevated);
+    color: var(--color-accent);
+    border: 1px solid var(--color-border);
+}
+
+
+/* =========================
+   DARK CODE BLOCKS
+   ========================= */
+
+.render pre {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-inset);
+}
+
+.render pre code {
+    color: var(--color-text-secondary);
+    border: none;
+    background: transparent;
+}
+
+
+/* =========================
+   DARK TABLES
+   ========================= */
+
+.render th,
+.render td {
+    border-color: var(--color-border);
+}
+
+.render th {
+    background: var(--color-surface);
+    color: var(--color-text);
+}
+
+.render td {
+    color: var(--color-text-secondary);
+}
+
+.render tr:nth-child(even) td {
+    background: rgba(30, 30, 34, 0.5);
+}
+
+
+/* =========================
+   DARK HORIZONTAL RULE
+   ========================= */
+
+.render hr {
+    border-top-color: var(--color-border);
+}
+
+
+/* =========================
+   DARK IMAGES
+   ========================= */
+
+.render img {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+
+/* =========================
+   DARK LISTS
+   ========================= */
+
+.render li::marker {
+    color: var(--color-muted);
+}
+
+
+/* =========================
+   DARK STRONG / EMPHASIS
+   ========================= */
+
+.render strong {
+    color: var(--color-text);
+}
+
+
+/* =========================
+   DARK SCROLLBAR
+   ========================= */
+
+.render::-webkit-scrollbar {
+    width: 6px;
+}
+
+.render::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.render::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+}
+
+.render:hover::-webkit-scrollbar-thumb {
+    background: var(--color-muted);
+}

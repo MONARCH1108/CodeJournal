@@ -8,9 +8,20 @@ import "./Home.css";
 function Home() {
     return (
         <main className="home">
+
+            {/* Grid background */}
+            <div className="home-grid-bg" />
+
+            {/* Corner marks */}
+            <div className="home-corner home-corner--tl" />
+            <div className="home-corner home-corner--tr" />
+            <div className="home-corner home-corner--bl" />
+            <div className="home-corner home-corner--br" />
+
+            {/* Content */}
             <section className="home-intro">
-                <p className="home-label" >
-                    MONARCH CODEJOURNAL
+                <p className="home-label">
+                    Monarch CodeJournal
                 </p>
                 <h1>
                     Building, learning,
@@ -23,6 +34,9 @@ function Home() {
                     This journal is where I document
                     what I learn and create.
                 </p>
+
+                <div className="home-separator" />
+
                 <div className="home-links">
                     <a
                         href="https://github.com/MONARCH1108"
@@ -50,6 +64,14 @@ function Home() {
                     </a>
                 </div>
             </section>
+
+            {/* Technical metadata annotation */}
+            <div className="home-meta">
+                v1.0 — 2026
+                <br />
+                48.8566° N, 2.3522° E
+            </div>
+
         </main>
     );
 }
