@@ -14,10 +14,9 @@ body {
     width: 250px;
     height: 100vh;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 10px;
     border: 2px solid black;
     overflow-y: auto;
-    padding: 10px;
 }
 
 .sidebar .ant-menu {
@@ -30,7 +29,6 @@ body {
     height: 32px;
     line-height: 32px;
     margin: 0;
-    padding-left: 12px !important;
     background: transparent !important;
 }
 
@@ -38,8 +36,28 @@ body {
     background: transparent !important;
 }
 
-.sidebar .ant-menu-sub .ant-menu-item {
-    padding-left: 32px !important;
+/* First level */
+.sidebar > .ant-menu > .ant-menu-item,
+.sidebar > .ant-menu > .ant-menu-submenu > .ant-menu-submenu-title {
+    padding-inline-start: 12px !important;
+}
+
+/* Second level */
+.sidebar > .ant-menu > .ant-menu-submenu > .ant-menu-sub > .ant-menu-item,
+.sidebar > .ant-menu > .ant-menu-submenu > .ant-menu-sub > .ant-menu-submenu > .ant-menu-submenu-title {
+    padding-inline-start: 32px !important;
+}
+
+/* Third level */
+.sidebar .ant-menu-sub .ant-menu-sub .ant-menu-item,
+.sidebar .ant-menu-sub .ant-menu-sub .ant-menu-submenu-title {
+    padding-inline-start: 52px !important;
+}
+
+/* Fourth level */
+.sidebar .ant-menu-sub .ant-menu-sub .ant-menu-sub .ant-menu-item,
+.sidebar .ant-menu-sub .ant-menu-sub .ant-menu-sub .ant-menu-submenu-title {
+    padding-inline-start: 72px !important;
 }
 
 .sidebar .ant-menu-item-selected {
