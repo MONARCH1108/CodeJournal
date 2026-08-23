@@ -1,5 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { Menu } from "antd";
+import {
+    FiFolder,
+    FiFolderPlus,
+    FiFileText,
+} from "react-icons/fi";
 
 import "./Sidebar.css";
 
@@ -45,7 +50,13 @@ function Sidebar({ isOpen, onClose }) {
                         .slice(0, index + 1)
                         .join("/"),
 
-                    label: part,
+                    label: isFile
+                        ? part.replace(".md", "")
+                        : part,
+
+                    icon: isFile
+                        ? <FiFileText />
+                        : <FiFolder />,
                 };
 
                 if (!isFile) {
@@ -80,25 +91,35 @@ function Sidebar({ isOpen, onClose }) {
     });
 
     return (
-    <>
-        <div
-            className={`sidebar-overlay ${
-                isOpen ? "sidebar-overlay-open" : ""
-            }`}
-            onClick={onClose}
-        />
-
-        <div
-            className={`sidebar ${
-                isOpen ? "sidebar-open" : ""
-            }`}
-        >
-            <Menu
-                mode="inline"
-                items={items}
+        <>
+            <div
+                className={`sidebar-overlay ${
+                    isOpen
+                        ? "sidebar-overlay-open"
+                        : ""
+                }`}
+                onClick={onClose}
             />
-        </div>
-    </>
+
+            <div
+                className={`sidebar ${
+                    isOpen
+                        ? "sidebar-open"
+                        : ""
+                }`}
+            >
+
+                <div className="sidebar-title">
+                    DOCUMENTATION
+                </div>
+
+                <Menu
+                    mode="inline"
+                    items={items}
+                />
+
+            </div>
+        </>
     );
 }
 

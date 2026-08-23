@@ -1,25 +1,3 @@
-html,
-body,
-#root {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-}
-
-body {
-    overflow: hidden;
-}
-
-/* =========================
-   MAIN LAYOUT
-   ========================= */
-
-.main-layout {
-    display: flex;
-    width: 100%;
-    height: calc(100vh - 52px);
-}
-
 /* =========================
    SIDEBAR
    ========================= */
@@ -27,70 +5,212 @@ body {
 .sidebar {
     width: 250px;
     height: 100%;
+
     box-sizing: border-box;
-    padding: 10px;
+
+    padding: 12px 8px;
 
     border-right: 2px solid black;
 
     overflow-y: auto;
+    overflow-x: hidden;
 
     background: white;
 
     flex-shrink: 0;
 }
 
-.sidebar .ant-menu {
-    border: none;
-    background: transparent;
+
+/* =========================
+   SIDEBAR TITLE
+   ========================= */
+
+.sidebar-title {
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 10px;
+
+    box-sizing: border-box;
+
+    font-size: 11px;
+    letter-spacing: 0.08em;
+
+    user-select: none;
 }
+
+
+/* =========================
+   ANT DESIGN MENU
+   ========================= */
+
+.sidebar .ant-menu {
+    width: 100%;
+
+    border: none !important;
+
+    background: transparent !important;
+}
+
+
+/* =========================
+   MENU ITEMS
+   ========================= */
 
 .sidebar .ant-menu-item,
 .sidebar .ant-menu-submenu-title {
+
+    width: 100%;
+
     height: 32px;
+
     line-height: 32px;
-    margin: 0;
+
+    margin: 0 !important;
+
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+
+    box-sizing: border-box;
+
     background: transparent !important;
+
+    border-radius: 0;
 }
+
+
+/* =========================
+   ICON ALIGNMENT
+   ========================= */
+
+.sidebar .ant-menu-item .anticon,
+.sidebar .ant-menu-submenu-title .anticon {
+
+    min-width: 18px;
+
+    margin-inline-end: 8px;
+
+    font-size: 16px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================
+   LABEL ALIGNMENT
+   ========================= */
+
+.sidebar .ant-menu-title-content {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   SUB MENUS
+   ========================= */
 
 .sidebar .ant-menu-sub {
+
     background: transparent !important;
 }
 
-/* First level */
 
-.sidebar > .ant-menu > .ant-menu-item,
-.sidebar > .ant-menu > .ant-menu-submenu > .ant-menu-submenu-title {
-    padding-inline-start: 12px !important;
+/*
+    Let Ant Design calculate
+    the nesting indentation.
+
+    This works for:
+    folder
+        folder
+            folder
+                folder
+                    file
+*/
+
+
+.sidebar .ant-menu-submenu {
+    margin: 0 !important;
 }
 
-/* Second level */
 
-.sidebar > .ant-menu > .ant-menu-submenu > .ant-menu-sub > .ant-menu-item,
-.sidebar > .ant-menu > .ant-menu-submenu > .ant-menu-sub > .ant-menu-submenu > .ant-menu-submenu-title {
-    padding-inline-start: 32px !important;
+/* =========================
+   EXPAND / COLLAPSE ARROW
+   ========================= */
+
+.sidebar .ant-menu-submenu-arrow {
+
+    right: 8px;
 }
 
-/* Third level */
 
-.sidebar .ant-menu-sub .ant-menu-sub .ant-menu-item,
-.sidebar .ant-menu-sub .ant-menu-sub .ant-menu-submenu-title {
-    padding-inline-start: 52px !important;
-}
-
-/* Fourth level */
-
-.sidebar .ant-menu-sub .ant-menu-sub .ant-menu-sub .ant-menu-item,
-.sidebar .ant-menu-sub .ant-menu-sub .ant-menu-sub .ant-menu-submenu-title {
-    padding-inline-start: 72px !important;
-}
+/* =========================
+   REMOVE DEFAULT STATES
+   ========================= */
 
 .sidebar .ant-menu-item-selected {
+
     background: transparent !important;
+
+    color: inherit !important;
 }
 
 .sidebar .ant-menu-item:hover,
 .sidebar .ant-menu-submenu-title:hover {
+
     background: transparent !important;
+
+    color: inherit !important;
+}
+
+
+/* =========================
+   ACTIVE / FOCUS
+   ========================= */
+
+.sidebar .ant-menu-item:active,
+.sidebar .ant-menu-submenu-title:active {
+
+    background: transparent !important;
+}
+
+
+/* =========================
+   SCROLLBAR
+   ========================= */
+
+.sidebar::-webkit-scrollbar {
+
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+
+    background: transparent;
+}
+
+
+/* =========================
+   MOBILE OVERLAY
+   ========================= */
+
+.sidebar-overlay {
+
+    display: none;
 }
 
 
@@ -98,18 +218,10 @@ body {
    MOBILE
    ========================= */
 
-.sidebar-overlay {
-    display: none;
-}
-
-
-/* =========================
-   MOBILE BREAKPOINT
-   ========================= */
-
 @media (max-width: 768px) {
 
     .sidebar {
+
         position: fixed;
 
         top: 52px;
@@ -117,26 +229,37 @@ body {
         bottom: 0;
 
         width: 280px;
+
         height: calc(100vh - 52px);
 
         z-index: 1000;
 
-        transform: translateX(-100%);
-        transition: transform 0.25s ease;
+        padding: 12px 8px;
 
         border-right: 2px solid black;
 
         background: white;
+
+        transform: translateX(-100%);
+
+        transition: transform 0.25s ease;
+
+        box-shadow: none;
     }
 
+
     .sidebar.sidebar-open {
+
         transform: translateX(0);
     }
 
 
-    /* Dark/transparent area behind sidebar */
+    /* =========================
+       MOBILE OVERLAY
+       ========================= */
 
     .sidebar-overlay {
+
         display: block;
 
         position: fixed;
@@ -146,30 +269,34 @@ body {
         right: 0;
         bottom: 0;
 
-        background: rgba(0, 0, 0, 0.25);
-
         z-index: 999;
 
+        background: rgba(0, 0, 0, 0.15);
+
         opacity: 0;
+
         visibility: hidden;
+
+        pointer-events: none;
 
         transition:
             opacity 0.25s ease,
             visibility 0.25s ease;
     }
 
+
     .sidebar-overlay-open {
+
         opacity: 1;
+
         visibility: visible;
+
+        pointer-events: auto;
     }
 
 
-    /* Main content uses full width */
+    .sidebar-title {
 
-    .main-layout {
-        display: block;
-
-        width: 100%;
-        height: calc(100vh - 52px);
+        padding-left: 10px;
     }
 }

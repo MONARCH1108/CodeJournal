@@ -1,0 +1,90 @@
+.home {
+    flex: 1;
+    height: 100%;
+    box-sizing: border-box;
+
+    overflow-y: auto;
+
+    display: flex;
+    align-items: center;
+
+    padding: 60px;
+}
+
+.home-intro {
+    max-width: 760px;
+}
+
+.home-label {
+    margin: 0 0 24px;
+
+    font-size: 12px;
+    letter-spacing: 0.12em;
+}
+
+.home h1 {
+    margin: 0;
+
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 0.95;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+}
+
+.home-description {
+    max-width: 520px;
+
+    margin-top: 32px;
+
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.home-links {
+    display: flex;
+    gap: 24px;
+
+    margin-top: 36px;
+}
+
+.home-links a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+.home-links svg {
+    width: 17px;
+    height: 17px;
+}
+
+@media (max-width: 768px) {
+
+    .home {
+        padding: 32px 20px;
+        align-items: flex-start;
+    }
+
+    .home-intro {
+        margin-top: 40px;
+    }
+
+    .home h1 {
+        font-size: clamp(44px, 13vw, 64px);
+    }
+
+    .home-description {
+        font-size: 15px;
+        margin-top: 24px;
+    }
+
+    .home-links {
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-top: 28px;
+    }
+}
