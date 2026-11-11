@@ -505,3 +505,8 @@ To continue using Monarch AI Bot, you must create a new guest account.
 **Final Reminder:** Always keep a copy of your username and UUID, and remember that your account and conversations are temporary. Save any important information you need before your 24-hour account validity period ends.
 
 ---
+## Connect & Explore
+
+- **GitHub:** [MONARCH1108](https://github.com/MONARCH1108)
+- **Portfolio:** [abhayemani.netlify.app](https://abhayemani.netlify.app/)
+- **Live Project:** [Monarch AI Bot](https://monarchaibot.netlify.app/)
