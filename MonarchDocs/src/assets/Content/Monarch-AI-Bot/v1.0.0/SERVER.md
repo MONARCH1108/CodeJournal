@@ -96,48 +96,48 @@ server/
 ```mermaid
 flowchart TD
     Client["Client / Web Frontend"]
-    
+
     subgraph FastAPI_App["FastAPI REST API (main.py)"]
         HealthRoute["GET /health"]
         TokenRoute["POST /token"]
         ProtectedGroup["Protected API Endpoints"]
-        
+
         subgraph SecurityDependencies["Security Dependencies"]
             BasicDep["require_basic_auth"]
             JWTDep["require_jwt"]
         end
-        
+
         TokenRoute --> BasicDep
         ProtectedGroup --> JWTDep
     end
-    
+
     subgraph DomainModules["Backend Modules"]
-        APIAuthMod["APIAuth/<br/>(JWT & Active Token)"]
-        AuthMod["auth/<br/>(Guest Accounts)"]
-        ChatMod["chat/<br/>(Orchestration)"]
-        ChatMgmtMod["chat_Management/<br/>(History & Threads)"]
-        LLMMod["LLM/<br/>(Groq Client)"]
+        APIAuthMod["APIAuth - JWT and Active Token"]
+        AuthMod["auth - Guest Accounts"]
+        ChatMod["chat - Orchestration"]
+        ChatMgmtMod["chat_Management - History and Threads"]
+        LLMMod["LLM - Groq Client"]
     end
-    
+
     subgraph CloudInfra["Cloud Infrastructure"]
-        NeonDB[("Neon PostgreSQL<br/>(4 Relational Tables)")]
+        NeonDB[("Neon PostgreSQL - 4 Relational Tables")]
         GroqAPI["Groq Cloud LLM API"]
     end
 
-    Client -->|Public Probes| HealthRoute
-    Client -->|Basic Auth| TokenRoute
-    Client -->|Bearer JWT Requests| ProtectedGroup
+    Client -->|"Public Probes"| HealthRoute
+    Client -->|"Basic Auth"| TokenRoute
+    Client -->|"Bearer JWT Requests"| ProtectedGroup
 
     BasicDep --> APIAuthMod
     JWTDep --> APIAuthMod
-    
-    APIAuthMod <-->|Single Token (id=1)| NeonDB
-    AuthMod <-->|Users (24h validity)| NeonDB
-    ChatMod <-->|Conversations & Messages| NeonDB
-    ChatMgmtMod <-->|Read Threads & Messages| NeonDB
-    
+
+    APIAuthMod <-->|"Single Token (id=1)"| NeonDB
+    AuthMod <-->|"Users (24h validity)"| NeonDB
+    ChatMod <-->|"Conversations and Messages"| NeonDB
+    ChatMgmtMod <-->|"Read Threads and Messages"| NeonDB
+
     ChatMod --> LLMMod
-    LLMMod <-->|Inference & Catalog| GroqAPI
+    LLMMod <-->|"Inference and Catalog"| GroqAPI
 ```
 
 ---

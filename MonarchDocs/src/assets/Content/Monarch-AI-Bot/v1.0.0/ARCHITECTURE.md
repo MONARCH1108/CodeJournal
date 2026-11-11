@@ -270,31 +270,33 @@ Because `api_active_token` enforces a fixed primary key of `id = 1`, issuing a n
 
 ```mermaid
 flowchart TD
-    Start([Visitor arrives at frontend]) --> UnauthCheck{Saved session in localStorage?}
-    
-    UnauthCheck -->|No| ShowAuth[Display AuthenticationScreen]
-    UnauthCheck -->|Yes| Rehydrate[Rehydrate user & selectedChatId]
-    
-    ShowAuth --> ActionChoice{User action}
-    ActionChoice -->|Create Account| SignupCall[POST /signup with chosen username]
-    SignupCall --> GenUUID[Server generates UUID v4 & sets created_at = NOW()]
-    GenUUID --> DisplayCopy[Show UUID with one-click copy button]
-    DisplayCopy --> LoginCall
-    
-    ActionChoice -->|Sign In| LoginCall[POST /login with username & UUID]
-    Rehydrate --> ValidateSession[Execute initial /chats API request]
-    
-    LoginCall --> Check24h{created_at > NOW() - 24 hours?}
+    Start(["Visitor arrives at frontend"]) --> UnauthCheck{"Saved session in localStorage?"}
+
+    UnauthCheck -->|"No"| ShowAuth["Display AuthenticationScreen"]
+    UnauthCheck -->|"Yes"| Rehydrate["Rehydrate user and selectedChatId"]
+
+    ShowAuth --> ActionChoice{"User action"}
+
+    ActionChoice -->|"Create Account"| SignupCall["POST /signup with chosen username"]
+    SignupCall --> GenUUID["Server generates UUID v4 and sets created_at = NOW()"]
+    GenUUID --> DisplayCopy["Show UUID with one-click copy button"]
+    DisplayCopy --> LoginCall["POST /login with username and UUID"]
+
+    ActionChoice -->|"Sign In"| LoginCall
+
+    Rehydrate --> ValidateSession["Execute initial /chats API request"]
+
+    LoginCall --> Check24h{"created_at > NOW() - 24 hours?"}
     ValidateSession --> Check24h
-    
-    Check24h -->|No - Expired| ExpiredAlert[Return 401 Unauthorized]
-    ExpiredAlert --> ClearStorage[Purge localStorage 'monarch_ai_session']
+
+    Check24h -->|"No - Expired"| ExpiredAlert["Return 401 Unauthorized"]
+    ExpiredAlert --> ClearStorage["Purge localStorage: monarch_ai_session"]
     ClearStorage --> ShowAuth
-    
-    Check24h -->|Yes - Active| EnterWorkspace[Mount Authenticated Workspace Layout]
-    EnterWorkspace --> ActiveUse[User interacts with chat and conversations]
-    
-    ActiveUse --> UserLogout[User clicks Logout in ControlPanel]
+
+    Check24h -->|"Yes - Active"| EnterWorkspace["Mount Authenticated Workspace Layout"]
+    EnterWorkspace --> ActiveUse["User interacts with chat and conversations"]
+
+    ActiveUse --> UserLogout["User clicks Logout in ControlPanel"]
     UserLogout --> ClearStorage
 ```
 
@@ -452,27 +454,28 @@ flowchart TD
 ```mermaid
 flowchart TD
     Req["Incoming Request"] --> BoundaryCheck{"Boundary Layer"}
-    
-    BoundaryCheck -->|Network / Transport| NetError["Connection Timeout / Drop"]
-    NetError --> AbortAction["AbortController triggers TimeoutError (15s/30s)"]
+
+    BoundaryCheck -->|"Network / Transport"| NetError["Connection Timeout / Drop"]
+    NetError --> AbortAction["AbortController triggers TimeoutError (15s / 30s)"]
     AbortAction --> UI_Alert["Ant Design Alert Banner (User Retries)"]
-    
-    BoundaryCheck -->|Authentication| AuthError{"Auth Rejection"}
-    AuthError -->|Invalid / Missing JWT| RejectJWT["401 Unauthorized (Bearer)"]
-    AuthError -->|Expired Guest (>24h)| Reject24h["401 Unauthorized (Login) / 400 Bad Request (Chat)"]
+
+    BoundaryCheck -->|"Authentication"| AuthError{"Auth Rejection"}
+    AuthError -->|"Invalid / Missing JWT"| RejectJWT["401 Unauthorized (Bearer)"]
+    AuthError -->|"Expired Guest (>24h)"| Reject24h["401 Unauthorized (Login) / 400 Bad Request (Chat)"]
+
     RejectJWT --> ResetClient["useAppState.handleSessionExpired() cleans localStorage"]
     Reject24h --> ResetClient
     ResetClient --> UI_AuthScreen["Return to AuthenticationScreen"]
-    
-    BoundaryCheck -->|Input Validation| ValError["Pydantic / ValueError"]
+
+    BoundaryCheck -->|"Input Validation"| ValError["Pydantic / ValueError"]
     ValError --> RejectVal["422 Unprocessable / 400 Bad Request"]
     RejectVal --> PreserveInput["Error displayed; input preserved in composer"]
-    
-    BoundaryCheck -->|External LLM| GroqError{"Groq API Failure"}
-    GroqError -->|RateLimitError / AuthError| GroqExcept["400 Bad Request with error detail"]
+
+    BoundaryCheck -->|"External LLM"| GroqError{"Groq API Failure"}
+    GroqError -->|"RateLimitError / AuthError"| GroqExcept["400 Bad Request with error detail"]
     GroqExcept --> PreserveInput
-    
-    BoundaryCheck -->|Database| DBError["psycopg.Error / OperationalError"]
+
+    BoundaryCheck -->|"Database"| DBError["psycopg.Error / OperationalError"]
     DBError --> Internal500["500 Internal Server Error"]
     Internal500 --> GenericAlert["User alerted with safe error message"]
 ```
