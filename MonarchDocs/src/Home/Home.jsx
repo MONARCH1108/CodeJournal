@@ -3,11 +3,15 @@ import {
     FiLinkedin,
     FiGlobe,
 } from "react-icons/fi";
+import NetworkBackground from "./NetworkBackground";
 import "./Home.css";
 
 function Home() {
     return (
         <main className="home">
+
+            {/* Network background */}
+            <NetworkBackground />
 
             {/* Grid background */}
             <div className="home-grid-bg" />

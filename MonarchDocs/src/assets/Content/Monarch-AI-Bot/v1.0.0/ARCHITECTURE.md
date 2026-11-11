@@ -1,13 +1,3 @@
----
-title: Monarch AI Bot - System Architecture Documentation
-project: Monarch AI Bot
-project_version: v1.0.0
-documentation_version: v1.0.0
-document_type: architecture
-last_updated: 2026-11-11
-status: verified
----
-
 # Monarch AI Bot — System Architecture Documentation
 
 ## 1. Document Metadata and Version
@@ -544,4 +534,3 @@ To maintain full transparency, the following architectural constraints reflect t
 3. **No Automatic Database Cleanup Cron**: While expired guest accounts (>24 hours) are immediately blocked by SQL checks (`created_at > NOW() - INTERVAL '24 hours'`), there is no automated background cron worker to physically delete expired rows from PostgreSQL.
 4. **Static Title Assignment**: Conversation titles default to `null` in the database, with the frontend falling back to formatting the conversation's `updated_at` date. Automatic title summarization via LLM is not implemented.
 5. **No Per-IP Rate Limiting**: Request rate limiting is not enforced at the application layer; rate limits currently depend on upstream Render edge proxies or Groq API tier limits.
-

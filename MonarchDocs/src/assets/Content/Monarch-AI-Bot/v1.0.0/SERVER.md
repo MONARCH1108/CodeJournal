@@ -1,13 +1,3 @@
----
-title: Monarch AI Bot - Server Technical Documentation
-project: Monarch AI Bot
-project_version: v1.0.0
-documentation_version: v1.0.0
-document_type: server
-last_updated: 2026-11-11
-status: verified
----
-
 # Monarch AI Bot — Server Technical Documentation
 
 ## 1. Document Metadata and Version

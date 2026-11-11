@@ -11,8 +11,17 @@
     align-items: center;
     padding: 60px;
     font-family: var(--font-editorial);
-    background: var(--color-bg);
+    background: #000000;
     position: relative;
+}
+
+.home-network-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
 }
 
 
