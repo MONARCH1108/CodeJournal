@@ -346,3 +346,92 @@
         background: rgba(0, 0, 0, 0.55);
     }
 }
+
+
+/* ==========================================
+   SIDEBAR FIX — NESTED MENU & TEXT VISIBILITY
+   ========================================== */
+
+/* Allow the sidebar to use its available width */
+.sidebar {
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+/* Prevent nested submenus from adding excessive width */
+.sidebar .ant-menu-sub {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    border-left: 1px solid var(--color-border) !important;
+}
+
+/* Keep menu items within the available width */
+.sidebar .ant-menu-item,
+.sidebar .ant-menu-submenu-title {
+    width: 100% !important;
+    max-width: 100%;
+    min-width: 0;
+    height: auto !important;
+    min-height: 40px;
+    line-height: 1.35 !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    padding-right: 28px !important;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+/* Allow long filenames to wrap instead of disappearing */
+.sidebar .ant-menu-title-content {
+    flex: 1;
+    min-width: 0;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    line-height: 1.4;
+}
+
+/* Keep icons aligned */
+.sidebar .ant-menu-item .anticon,
+.sidebar .ant-menu-submenu-title .anticon {
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+}
+
+/* Keep expand/collapse arrows visible */
+.sidebar .ant-menu-submenu-arrow {
+    right: 8px !important;
+    flex-shrink: 0;
+}
+
+/* Prevent nested menu items from overflowing */
+.sidebar .ant-menu,
+.sidebar .ant-menu-sub,
+.sidebar .ant-menu-submenu {
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Improve nested folder indentation */
+.sidebar .ant-menu-submenu {
+    margin: 0 !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 280px;
+        max-width: 85vw;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .sidebar .ant-menu-title-content {
+        overflow-wrap: anywhere;
+    }
+}
